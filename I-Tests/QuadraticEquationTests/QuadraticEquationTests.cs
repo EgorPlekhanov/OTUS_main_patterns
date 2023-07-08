@@ -1,3 +1,7 @@
+using I_Tests;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+
 namespace QuadraticEquationTests
 {
     /// <summary>
@@ -17,7 +21,9 @@ namespace QuadraticEquationTests
             double c = 1.0;
             double[] expected = Array.Empty<double>();
 
-            double[] actual = I_Tests.Solve(a, b, c);
+            double[] actual = QuadraticEquation.Solve(a, b, c);
+
+            Assert.AreEqual(expected, actual, "Ошибка при вычислении выражения x^2+1=0");
         }
     }
 }

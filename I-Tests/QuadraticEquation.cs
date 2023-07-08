@@ -1,12 +1,9 @@
-﻿namespace I_Tests
-{
-    internal class I_Tests
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
+﻿using System;
 
+namespace I_Tests
+{
+    public static class QuadraticEquation
+    {
         /// <summary>
         /// Метод нахождения квадратного уровнения
         /// </summary>
@@ -14,7 +11,7 @@
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns>Массив корней</returns>
-        public double[] Solve(double a, double b, double c)
+        public static double[] Solve(double a, double b, double c)
         {
             return Array.Empty<double>();
         }
