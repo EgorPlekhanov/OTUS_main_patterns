@@ -107,8 +107,7 @@ namespace QuadraticEquationTests
         [TestMethod]
         public void InvalidParams()
         {
-            double[] invalidValues = new[] { double.NaN, double.NegativeInfinity, double.PositiveInfinity };
-            foreach (var value in invalidValues)
+            foreach (var value in QuadraticEquation.INVALID_VALUES)
             {
                 for (int i = 0; i < 3; i++)
                 {
