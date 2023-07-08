@@ -107,7 +107,7 @@ namespace QuadraticEquationTests
         [TestMethod]
         public void InvalidParams()
         {
-            foreach (var value in QuadraticEquation.INVALID_VALUES)
+            foreach (var value in QuadraticEquation.INVALID_COEFFICIENTS)
             {
                 for (int i = 0; i < 3; i++)
                 {

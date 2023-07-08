@@ -5,7 +5,8 @@ namespace I_Tests
 {
     public static class QuadraticEquation
     {
-        public static readonly double[] INVALID_VALUES = { double.NaN, double.NegativeInfinity, double.PositiveInfinity };
+        public static readonly double[] INVALID_COEFFICIENTS = {
+            double.NaN, double.NegativeInfinity, double.PositiveInfinity, double.MaxValue, double.MinValue };
 
         /// <summary>
         /// Метод нахождения квадратного уровнения
@@ -32,7 +33,7 @@ namespace I_Tests
         {
             if (Math.Abs(a) <= epsilon)
                 throw new ArgumentException($@"Коэффициент ""a"" не может быть равен 0");
-            if (INVALID_VALUES.Intersect(new[] { a, b, c }).Any())
+            if (INVALID_COEFFICIENTS.Intersect(new[] { a, b, c }).Any())
                 throw new ArgumentException($"Один из коэффициентов имеет недопустимое значение");
         }
     }
