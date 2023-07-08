@@ -13,10 +13,13 @@ namespace I_Tests
         /// <returns>Массив корней</returns>
         public static double[] Solve(double a, double b, double c)
         {
-            if (a.Equals(1.0) && b.Equals(0))
+            if (a.Equals(1.0))
             {
-                if (c >= 0)
-                    return Array.Empty<double>();
+                if (b.Equals(0))
+                {
+                    if (c >= 0)
+                        return Array.Empty<double>();
+                }
                 double x1 = (-b + Math.Sqrt(GetDiscriminant(b, a, c))) / 2 * a;
                 double x2 = (-b - Math.Sqrt(GetDiscriminant(b, a, c))) / 2 * a;
                 return new double[] { x1, x2 };
