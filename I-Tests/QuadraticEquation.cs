@@ -11,8 +11,10 @@ namespace I_Tests
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns>Массив корней</returns>
-        public static double[] Solve(double a, double b, double c)
+        public static double[] Solve(double a, double b, double c, double epsilon = double.Epsilon)
         {
+            if (Math.Abs(a) <= epsilon)
+                throw new ArgumentException($@"Коэффициент ""a"" не может быть равен 0");
             if (a.Equals(1.0))
             {
                 if (b.Equals(0))

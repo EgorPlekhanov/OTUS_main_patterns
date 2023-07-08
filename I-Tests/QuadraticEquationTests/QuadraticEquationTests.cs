@@ -70,14 +70,16 @@ namespace QuadraticEquationTests
             }
         }
 
-        //тест, который проверяет, что коэффициент a не может быть равен 0. В этом случае solve выбрасывает исключение.
+        /// <summary>
+        /// Тест, который проверяет, что коэффициент a не может быть равен 0. В этом случае solve выбрасывает исключение
+        /// </summary>
         [TestMethod]
         public void AIsNot0()
         {
             double a = 0.0;
             double b = 2.0;
             double c = 1.0;
-            Assert.ThrowsException<Exception>(() => QuadraticEquation.Solve(a, b, c));
+            Assert.ThrowsException<ArgumentException>(() => QuadraticEquation.Solve(a, b, c));
         }
     }
 }
