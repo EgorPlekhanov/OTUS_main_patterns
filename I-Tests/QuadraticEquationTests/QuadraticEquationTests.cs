@@ -1,23 +1,23 @@
-using I_Tests;
+п»їusing I_Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace QuadraticEquationTests
 {
     /// <summary>
-    /// Набор тестов для проверки метода вычисления корней квадратного уравнения
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ РїСЂРѕРІРµСЂРєРё РјРµС‚РѕРґР° РІС‹С‡РёСЃР»РµРЅРёСЏ РєРѕСЂРЅРµР№ РєРІР°РґСЂР°С‚РЅРѕРіРѕ СѓСЂР°РІРЅРµРЅРёСЏ
     /// </summary>
     [TestClass]
     public class QuadraticEquationTests
     {
         private static string GetErrorMessage(string startMessage, double[] values)
-            => $"{startMessage}. Метод вернул: ({string.Join(", ", values)})";
+            => $"{startMessage}. РњРµС‚РѕРґ РІРµСЂРЅСѓР»: ({string.Join(", ", values)})";
 
         private static string GetErrorMessage(string startMessage, double expectedValue, double actualValue)
-            => $"{startMessage}. x1 = {actualValue}, а ожидалось {expectedValue}";
+            => $"{startMessage}. x1 = {actualValue}, Р° РѕР¶РёРґР°Р»РѕСЃСЊ {expectedValue}";
 
         /// <summary>
-        /// Тест на то, что при x^2+1=0 метод вернёт пустой массив
+        /// РўРµСЃС‚ РЅР° С‚Рѕ, С‡С‚Рѕ РїСЂРё x^2+1=0 РјРµС‚РѕРґ РІРµСЂРЅС‘С‚ РїСѓСЃС‚РѕР№ РјР°СЃСЃРёРІ
         /// </summary>
         [TestMethod]
         public void AIs1_BIs0_CIs1()
@@ -29,11 +29,11 @@ namespace QuadraticEquationTests
 
             double[] actual = QuadraticEquation.Solve(a, b, c);
 
-            Assert.AreEqual(expected, actual, GetErrorMessage("Ошибка при вычислении уравнения x^2+1=0", actual));
+            Assert.AreEqual(expected, actual, GetErrorMessage("РћС€РёР±РєР° РїСЂРё РІС‹С‡РёСЃР»РµРЅРёРё СѓСЂР°РІРЅРµРЅРёСЏ x^2+1=0", actual));
         }
 
         /// <summary>
-        /// Тест, который проверяет, что для уравнения x^2-1 = 0 есть два корня кратности 1 (x1=1, x2=-1)
+        /// РўРµСЃС‚, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРµСЂСЏРµС‚, С‡С‚Рѕ РґР»СЏ СѓСЂР°РІРЅРµРЅРёСЏ x^2-1 = 0 РµСЃС‚СЊ РґРІР° РєРѕСЂРЅСЏ РєСЂР°С‚РЅРѕСЃС‚Рё 1 (x1=1, x2=-1)
         /// </summary>
         [TestMethod]
         public void AIs1_BIs0_CIsMinus1()
@@ -47,12 +47,12 @@ namespace QuadraticEquationTests
 
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"Ошибка при вычислении уравнения x^2-1 = 0", expected[i], actual[i]));
+                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"РћС€РёР±РєР° РїСЂРё РІС‹С‡РёСЃР»РµРЅРёРё СѓСЂР°РІРЅРµРЅРёСЏ x^2-1 = 0", expected[i], actual[i]));
             }
         }
 
         /// <summary>
-        /// Тест, который проверяет, что для уравнения x^2+2x+1 = 0 есть один корень кратности 2 (x1= x2 = -1)
+        /// РўРµСЃС‚, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРµСЂСЏРµС‚, С‡С‚Рѕ РґР»СЏ СѓСЂР°РІРЅРµРЅРёСЏ x^2+2x+1 = 0 РµСЃС‚СЊ РѕРґРёРЅ РєРѕСЂРµРЅСЊ РєСЂР°С‚РЅРѕСЃС‚Рё 2 (x1= x2 = -1)
         /// </summary>
         [TestMethod]
         public void AIs1_BIs2_CIs1()
@@ -66,12 +66,12 @@ namespace QuadraticEquationTests
 
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"Ошибка при вычислении уравнения x^2+2x+1 = 0", expected[i], actual[i]));
+                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"РћС€РёР±РєР° РїСЂРё РІС‹С‡РёСЃР»РµРЅРёРё СѓСЂР°РІРЅРµРЅРёСЏ x^2+2x+1 = 0", expected[i], actual[i]));
             }
         }
 
         /// <summary>
-        /// Тест, который проверяет, что коэффициент a не может быть равен 0. В этом случае solve выбрасывает исключение
+        /// РўРµСЃС‚, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРµСЂСЏРµС‚, С‡С‚Рѕ РєРѕСЌС„С„РёС†РёРµРЅС‚ a РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ СЂР°РІРµРЅ 0. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ solve РІС‹Р±СЂР°СЃС‹РІР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ
         /// </summary>
         [TestMethod]
         public void AIsNot0()
@@ -83,7 +83,7 @@ namespace QuadraticEquationTests
         }
 
         /// <summary>
-        /// Тест, который проверяет, что при дискриминанте равном 0 возвращается один корень кратности 2
+        /// РўРµСЃС‚, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРµСЂСЏРµС‚, С‡С‚Рѕ РїСЂРё РґРёСЃРєСЂРёРјРёРЅР°РЅС‚Рµ СЂР°РІРЅРѕРј 0 РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ РѕРґРёРЅ РєРѕСЂРµРЅСЊ РєСЂР°С‚РЅРѕСЃС‚Рё 2
         /// </summary>
         [TestMethod]
         public void DiscriminantIs0()
@@ -97,12 +97,12 @@ namespace QuadraticEquationTests
 
             for (int i = 0; i < 2; i++)
             {
-                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"Ошибка при вычислении уравнения x^2+6x+9 = 0", expected[i], actual[i]));
+                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"РћС€РёР±РєР° РїСЂРё РІС‹С‡РёСЃР»РµРЅРёРё СѓСЂР°РІРЅРµРЅРёСЏ x^2+6x+9 = 0", expected[i], actual[i]));
             }
         }
 
         /// <summary>
-        /// Тест, который проверяет, что метод Solve выбросит ошибку если один из коэффициентов принимает невалидное число типа double
+        /// РўРµСЃС‚, РєРѕС‚РѕСЂС‹Р№ РїСЂРѕРІРµСЂСЏРµС‚, С‡С‚Рѕ РјРµС‚РѕРґ Solve РІС‹Р±СЂРѕСЃРёС‚ РѕС€РёР±РєСѓ РµСЃР»Рё РѕРґРёРЅ РёР· РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ РїСЂРёРЅРёРјР°РµС‚ РЅРµРІР°Р»РёРґРЅРѕРµ С‡РёСЃР»Рѕ С‚РёРїР° double
         /// </summary>
         [TestMethod]
         public void InvalidParams()
