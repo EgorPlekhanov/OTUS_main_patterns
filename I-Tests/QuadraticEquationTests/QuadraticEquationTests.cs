@@ -100,5 +100,23 @@ namespace QuadraticEquationTests
                 Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"Ошибка при вычислении уравнения x^2+6x+9 = 0", expected[i], actual[i]));
             }
         }
+
+        /// <summary>
+        /// Тест, который проверяет, что метод Solve выбросит ошибку если один из коэффициентов принимает невалидное число типа double
+        /// </summary>
+        [TestMethod]
+        public void InvalidParams()
+        {
+            double[] invalidValues = new[] { double.NaN, double.NegativeInfinity, double.PositiveInfinity };
+            foreach (var value in invalidValues)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    double[] args = new[] { 2.0, 6.0, 9.0 };
+                    args[i] = value;
+                    Assert.ThrowsException<ArgumentException>(() => QuadraticEquation.Solve(args[0], args[1], args[2]));
+                }
+            }
+        }
     }
 }
