@@ -20,7 +20,7 @@ namespace QuadraticEquationTests
         /// Тест на то, что при x^2+1=0 метод вернёт пустой массив
         /// </summary>
         [TestMethod]
-        public void AIs1_BIsZero_CIs1()
+        public void AIs1_BIs0_CIs1()
         {
             double a = 1.0;
             double b = 0.0;
@@ -36,7 +36,7 @@ namespace QuadraticEquationTests
         /// Тест, который проверяет, что для уравнения x^2-1 = 0 есть два корня кратности 1 (x1=1, x2=-1)
         /// </summary>
         [TestMethod]
-        public void AIs1_BIsZero_CIsMinus1()
+        public void AIs1_BIs0_CIsMinus1()
         {
             double a = 1.0;
             double b = 0.0;
@@ -68,6 +68,16 @@ namespace QuadraticEquationTests
             {
                 Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"Ошибка при вычислении уравнения x^2+2x+1 = 0", expected[i], actual[i]));
             }
+        }
+
+        //тест, который проверяет, что коэффициент a не может быть равен 0. В этом случае solve выбрасывает исключение.
+        [TestMethod]
+        public void AIsNot0()
+        {
+            double a = 0.0;
+            double b = 2.0;
+            double c = 1.0;
+            Assert.ThrowsException<Exception>(() => QuadraticEquation.Solve(a, b, c));
         }
     }
 }
