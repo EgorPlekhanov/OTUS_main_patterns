@@ -81,5 +81,24 @@ namespace QuadraticEquationTests
             double c = 1.0;
             Assert.ThrowsException<ArgumentException>(() => QuadraticEquation.Solve(a, b, c));
         }
+
+        /// <summary>
+        /// “ест, который провер€ет, что при дискриминанте равном 0 возвращаетс€ один корень кратности 2
+        /// </summary>
+        [TestMethod]
+        public void DiscriminantIs0()
+        {
+            double a = 1.0;
+            double b = 6.0;
+            double c = 9.0;
+            double[] expected = new[] { -3.0, -3.0 };
+
+            double[] actual = QuadraticEquation.Solve(a, b, c);
+
+            for (int i = 0; i < 2; i++)
+            {
+                Assert.AreEqual(expected[i], actual[i], GetErrorMessage($"ќшибка при вычислении уравнени€ x^2+6x+9 = 0", expected[i], actual[i]));
+            }
+        }
     }
 }
