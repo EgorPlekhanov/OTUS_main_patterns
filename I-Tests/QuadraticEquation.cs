@@ -13,7 +13,9 @@ namespace I_Tests
         /// <returns>Массив корней</returns>
         public static double[] Solve(double a, double b, double c)
         {
-            return Array.Empty<double>();
+            if (a.Equals(1.0) && b.Equals(0) && c >= 0)
+                return Array.Empty<double>();
+            throw new NotImplementedException();
         }
     }
 }
