@@ -5,10 +5,12 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "I_Tests", "I-Tests\I_Tests.csproj", "{6EABB8C3-D785-4B69-A20C-3D3AA6FF7E6A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadraticEquationTests", "I-Tests\QuadraticEquationTests\QuadraticEquationTests.csproj", "{B75E1DB9-B46F-4AC3-B8E1-ECD4355F65C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "I-Tests\QuadraticEquationTests\Tests.csproj", "{B75E1DB9-B46F-4AC3-B8E1-ECD4355F65C3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6EABB8C3-D785-4B69-A20C-3D3AA6FF7E6A} = {6EABB8C3-D785-4B69-A20C-3D3AA6FF7E6A}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceBattle", "SpaceBattle\SpaceBattle.csproj", "{44AD93DF-DA2C-46DC-BBDB-37ECB5665C7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{B75E1DB9-B46F-4AC3-B8E1-ECD4355F65C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B75E1DB9-B46F-4AC3-B8E1-ECD4355F65C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B75E1DB9-B46F-4AC3-B8E1-ECD4355F65C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AD93DF-DA2C-46DC-BBDB-37ECB5665C7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AD93DF-DA2C-46DC-BBDB-37ECB5665C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AD93DF-DA2C-46DC-BBDB-37ECB5665C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AD93DF-DA2C-46DC-BBDB-37ECB5665C7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
