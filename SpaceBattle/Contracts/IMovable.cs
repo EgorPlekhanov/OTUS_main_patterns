@@ -5,24 +5,17 @@ namespace SpaceBattle.Contracts
     /// <summary>
     /// Контракт для двигающихся объектов
     /// </summary>
-    public interface IMovable
+    public interface IMovable : ICommand
     {
         /// <summary>
-        /// Получить текущую позицию объекта
+        /// Текущая позиция объекта на плоскости (x, y)
         /// </summary>
-        /// <returns>Вектор (целые числа)</returns>
-        public Vector<long> GetPosition();
+        Vector<double> Position { get; set; }
 
         /// <summary>
-        /// Задать позицию объекта
-        /// </summary>
-        /// <param name="position">Вектор (целые числа). Новая позиция объекта</param>
-        public void SetPosition(Vector<long> position);
-
-        /// <summary>
-        /// Получить текущую мгновенную скорость объекта
+        /// Текущая мгновенная скорость объекта
         /// </summary>
         /// <returns></returns>
-        public Vector<long> GetVelocity();
+        Vector<double> Velocity { get; }
     }
 }

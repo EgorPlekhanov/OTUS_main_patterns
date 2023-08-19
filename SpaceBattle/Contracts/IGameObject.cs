@@ -10,13 +10,13 @@
         /// </summary>
         /// <param name="name">Название свойства</param>
         /// <returns>Значение свойства <paramref name="name"/></returns>
-        public object GetProperty(string name);
+        object GetProperty(string name);
 
         /// <summary>
         /// Задать значение <paramref name="value"/> свойства объекта с именем <paramref name="name"/>
         /// </summary>
         /// <param name="name">Название свойства</param>
         /// <param name="value">Значение свойства</param>
-        public void SetProperty(string name, object value);
+        void SetProperty(string name, object value);
     }
 }

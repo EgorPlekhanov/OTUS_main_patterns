@@ -13,5 +13,10 @@ namespace Tests
     [TestClass]
     public class MoveObjectTests
     {
+        [TestMethod]
+        public void CorrectlyMoveGameObject()
+        {
+
+        }
     }
 }
