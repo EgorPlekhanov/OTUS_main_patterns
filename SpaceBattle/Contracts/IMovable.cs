@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-namespace SpaceBattle.Contracts
+﻿namespace SpaceBattle.Contracts
 {
     /// <summary>
     /// Контракт для двигающихся объектов
@@ -10,12 +8,12 @@ namespace SpaceBattle.Contracts
         /// <summary>
         /// Текущая позиция объекта на плоскости (x, y)
         /// </summary>
-        Vector<double> Position { get; set; }
+        ValueTuple<int, int> Position { get; set; }
 
         /// <summary>
-        /// Текущая мгновенная скорость объекта
+        /// Вычисленная скорость объекта с учётом направления
         /// </summary>
         /// <returns></returns>
-        Vector<double> Velocity { get; }
+        ValueTuple<int, int> CalculatedVelocity { get; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using SpaceBattle.Contracts;
-using System.Numerics;
 
 namespace SpaceBattle.Adapters
 {
@@ -9,32 +8,38 @@ namespace SpaceBattle.Adapters
     public class MovableAdapter : IMovable
     {
         private readonly IGameObject gameObject;
+
         public MovableAdapter(IGameObject gameObject)
         {
             this.gameObject = gameObject;
         }
 
-        public Vector<double> Position
+        public ValueTuple<int, int> Position
         {
-            get => (Vector<double>)gameObject.GetProperty(nameof(Position));
+            get => (ValueTuple<int, int>)gameObject.GetProperty(nameof(Position));
             set => gameObject.SetProperty(nameof(Position), value);
         }
 
-        public Vector<double> Velocity
+        public ValueTuple<int, int> CalculatedVelocity
         {
             get
             {
                 int currentDirection = (int)gameObject.GetProperty(nameof(IRotatable.Direction));
                 int speed = (int)gameObject.GetProperty(Constants.VELOCITY);
                 int directionsCount = (int)gameObject.GetProperty(nameof(IRotatable.DirectionsCount));
-                return new(new[] {
-                    speed * Math.Cos((double)currentDirection / 360 * directionsCount),
-                    speed * Math.Sin((double)currentDirection / 360 * directionsCount)
-                });
+                double degree = (double)currentDirection / directionsCount * 360;
+                var (sin, cos) = Math.SinCos(Math.PI * degree / 180.0);
+                return (
+                    Convert.ToInt32(speed * cos),
+                    Convert.ToInt32(speed * sin)
+                );
             }
         }
-
-        public void Execute() =>
-            gameObject.SetProperty(nameof(Position), Position + Velocity);
+        public void Execute()
+        {
+            var calculedVelocity = CalculatedVelocity;
+            gameObject.SetProperty(nameof(Position),
+                (Position.Item1 + calculedVelocity.Item1, Position.Item2 + calculedVelocity.Item2));
+        }
     }
 }

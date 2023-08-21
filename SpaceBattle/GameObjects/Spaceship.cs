@@ -7,7 +7,7 @@ namespace SpaceBattle.GameObjects
     /// </summary>
     public class Spaceship : IGameObject
     {
-        private static readonly Dictionary<string, object> properties = new();
+        private readonly Dictionary<string, object> properties = new();
 
         public object GetProperty(string name) => properties[name];
 

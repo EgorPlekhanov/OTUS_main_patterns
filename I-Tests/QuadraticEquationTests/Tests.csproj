@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+	<ProjectReference Include="..\..\SpaceBattle\SpaceBattle.csproj" />
 	<ProjectReference Include="..\I_Tests.csproj" />
   </ItemGroup>
 

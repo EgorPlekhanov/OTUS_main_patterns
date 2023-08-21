@@ -17,7 +17,7 @@ namespace SpaceBattle.Adapters
         public int Direction
         {
             get => (int)gameObject.GetProperty(nameof(Direction));
-            set => gameObject.SetProperty(nameof(Direction), value);
+            set => gameObject.SetProperty(nameof(Direction), value % DirectionsCount);
         }
 
         public int DirectionsCountPerStep =>
@@ -26,7 +26,13 @@ namespace SpaceBattle.Adapters
         public int DirectionsCount =>
             (int)gameObject.GetProperty(nameof(DirectionsCount));
 
-        public void Execute() =>
+        public void Execute()
+        {
+            if (DirectionsCountPerStep < 1)
+                throw new Exception("Кол-во поворотов за шаг не может быть меньше 1");
+            if (DirectionsCount < 1)
+                throw new Exception("Общее кол-во углов не может быть меньше 1");
             gameObject.SetProperty(nameof(Direction), (Direction + DirectionsCountPerStep) % DirectionsCount);
+        }
     }
 }
