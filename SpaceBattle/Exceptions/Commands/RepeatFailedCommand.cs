@@ -1,6 +1,6 @@
 ﻿using SpaceBattle.Contracts;
 
-namespace SpaceBattle.Exceptions.Commands
+namespace SpaceBattle.Exceptions
 {
     /// <summary>
     /// Команда, которая повторяет команду, которая завершилась с ошибкой
