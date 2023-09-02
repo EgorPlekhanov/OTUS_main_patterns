@@ -3,16 +3,16 @@
 namespace SpaceBattle.Exceptions
 {
     /// <summary>
-    /// Обработчик ошибок
+    /// Дефолтный обработчик ошибок
     /// </summary>
-    public class ExceptionHandler
+    public class DefaultExceptionHandler : IExceptionHandler
     {
         /// <summary>
         /// Словарь (CommandType, Словарь(ExceptionType, HandleExceptionCommand))
         /// </summary>
         private readonly IDictionary<Type, IDictionary<Type, ICommand>> commandTypeExceptionHandlers;
 
-        public ExceptionHandler(
+        public DefaultExceptionHandler(
             IDictionary<Type, IDictionary<Type, ICommand>> commandTypeExceptionHandlers)
         {
             this.commandTypeExceptionHandlers = commandTypeExceptionHandlers;

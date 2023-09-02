@@ -17,11 +17,11 @@ namespace SpaceBattle
         /// <summary>
         /// Обработчик ошибок
         /// </summary>
-        private readonly ExceptionHandler exceptionHandler;
+        private readonly DefaultExceptionHandler exceptionHandler;
 
         public CommandRunner(
             ConcurrentQueue<ICommand> queue,
-            ExceptionHandler exceptionHandler)
+            DefaultExceptionHandler exceptionHandler)
         {
             this.queue = queue;
             this.exceptionHandler = exceptionHandler;
