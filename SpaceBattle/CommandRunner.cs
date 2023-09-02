@@ -1,5 +1,4 @@
 ﻿using SpaceBattle.Contracts;
-using SpaceBattle.Exceptions;
 using System.Collections.Concurrent;
 
 namespace SpaceBattle
@@ -7,7 +6,7 @@ namespace SpaceBattle
     /// <summary>
     /// Раннер команд
     /// </summary>
-    public class CommandRunner
+    public class CommandRunner : ICommand
     {
         /// <summary>
         /// Очередь команд
@@ -17,17 +16,17 @@ namespace SpaceBattle
         /// <summary>
         /// Обработчик ошибок
         /// </summary>
-        private readonly DefaultExceptionHandler exceptionHandler;
+        private readonly IExceptionHandler exceptionHandler;
 
         public CommandRunner(
             ConcurrentQueue<ICommand> queue,
-            DefaultExceptionHandler exceptionHandler)
+            IExceptionHandler exceptionHandler)
         {
             this.queue = queue;
             this.exceptionHandler = exceptionHandler;
         }
 
-        public void Run()
+        public void Execute()
         {
             while (!queue.IsEmpty)
             {
