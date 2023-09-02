@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace QuadraticEquationTests
+namespace Tests
 {
     /// <summary>
     /// Набор тестов для проверки метода вычисления корней квадратного уравнения
