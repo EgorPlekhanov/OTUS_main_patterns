@@ -10,10 +10,10 @@ namespace SpaceBattle.Exceptions
         /// <summary>
         /// Словарь (Тип конкретной команды, Словарь(Тип конкретной ошибки, Стратегия обработки ошибки))
         /// </summary>
-        private readonly IDictionary<Type, IDictionary<Type, Func<Exception, ICommand>>> commandTypeExceptionHandlers;
+        private readonly IDictionary<Type, IDictionary<Type, Func<object, ICommand>>> commandTypeExceptionHandlers;
 
         public DefaultExceptionHandler(
-            IDictionary<Type, IDictionary<Type, Func<Exception, ICommand>>> commandTypeExceptionHandlers)
+            IDictionary<Type, IDictionary<Type, Func<object, ICommand>>> commandTypeExceptionHandlers)
         {
             this.commandTypeExceptionHandlers = commandTypeExceptionHandlers;
         }

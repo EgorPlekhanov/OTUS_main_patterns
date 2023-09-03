@@ -53,11 +53,11 @@ namespace Tests.Homework_III
         [TestMethod]
         public void WriteLogAfterException()
         {
-            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<Exception, ICommand>>>()
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object, ICommand>>>()
             {
                 { typeof(RotatableAdapter),
-                    new Dictionary<Type, Func<Exception, ICommand>>()
-                    {{ typeof(InvalidInputValueException), (exception) => new LogExceptionCommand(loggerMessages, exception) }}
+                    new Dictionary<Type, Func<object, ICommand>>()
+                    {{ typeof(InvalidInputValueException), (argument) => new LogExceptionCommand(loggerMessages, argument as Exception) }}
                 }
             };
             DefaultExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
@@ -75,11 +75,11 @@ namespace Tests.Homework_III
         [TestMethod]
         public void AddWriteLogAfterExceptionCommandInQueue()
         {
-            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<Exception, ICommand>>>()
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object, ICommand>>>()
             {
                 { typeof(RotatableAdapter),
-                    new Dictionary<Type, Func<Exception, ICommand>>()
-                    {{ typeof(InvalidInputValueException), (exception) => new LogExceptionCommand(loggerMessages, exception) }}
+                    new Dictionary<Type, Func<object, ICommand>>()
+                    {{ typeof(InvalidInputValueException), (argument) => new LogExceptionCommand(loggerMessages, argument as Exception) }}
                 }
             };
             AddCommandToQueueExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers, queue);
@@ -90,6 +90,18 @@ namespace Tests.Homework_III
             Assert.IsTrue(queue.IsEmpty);
             // Такая проверка чтобы убедиться, что команда для записи ошибки в лог вызвалась только 1 раз
             Assert.IsTrue(loggerMessages.Count == 1);
+        }
+
+        /// <summary>
+        /// Вызов команды, которая повторяет команду вызвавшую ошибку
+        /// </summary>
+        [TestMethod]
+        public void RepeatCommandAfterException()
+        {
+            RepeatFaliedCommandExceptionHandler exceptionHandler = new();
+            var commandRunner = new CommandRunner(queue, exceptionHandler);
+
+            Assert.ThrowsException<InvalidInputValueException>(() => commandRunner.Execute());
         }
     }
 }
