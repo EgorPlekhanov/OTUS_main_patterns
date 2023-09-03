@@ -53,14 +53,16 @@ namespace Tests.Homework_III
         [TestMethod]
         public void WriteLogAfterException()
         {
-            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object, ICommand>>>()
+            var logExceptionStrategy = (object[] arguments) =>
+                new LogExceptionCommand(loggerMessages, arguments[1] as Exception);
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object[], ICommand>>>()
             {
                 { typeof(RotatableAdapter),
-                    new Dictionary<Type, Func<object, ICommand>>()
-                    {{ typeof(InvalidInputValueException), (argument) => new LogExceptionCommand(loggerMessages, argument as Exception) }}
+                    new Dictionary<Type, Func<object[], ICommand>>()
+                    {{ typeof(InvalidInputValueException), logExceptionStrategy }}
                 }
             };
-            DefaultExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
+            ExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
             var commandRunner = new CommandRunner(queue, exceptionHandler);
 
             commandRunner.Execute();
@@ -75,14 +77,19 @@ namespace Tests.Homework_III
         [TestMethod]
         public void AddWriteLogAfterExceptionCommandInQueue()
         {
-            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object, ICommand>>>()
+            var addCommandlogExceptionInQueryStrategy = (object[] arguments) =>
+            {
+                LogExceptionCommand logCommand = new(loggerMessages, arguments[1] as Exception);
+                return new AddCommandToQueueCommand(logCommand, queue);
+            };
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object[], ICommand>>>()
             {
                 { typeof(RotatableAdapter),
-                    new Dictionary<Type, Func<object, ICommand>>()
-                    {{ typeof(InvalidInputValueException), (argument) => new LogExceptionCommand(loggerMessages, argument as Exception) }}
+                    new Dictionary<Type, Func<object[], ICommand>>()
+                    {{ typeof(InvalidInputValueException), addCommandlogExceptionInQueryStrategy }}
                 }
             };
-            AddCommandToQueueExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers, queue);
+            ExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
             var commandRunner = new CommandRunner(queue, exceptionHandler);
 
             commandRunner.Execute();
@@ -98,10 +105,45 @@ namespace Tests.Homework_III
         [TestMethod]
         public void RepeatCommandAfterException()
         {
-            RepeatFaliedCommandExceptionHandler exceptionHandler = new();
+            var repeatCommandAfterExceptionStrategy = (object[] arguments) =>
+                new RepeatFailedCommand(arguments[0] as ICommand);
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object[], ICommand>>>()
+            {
+                { typeof(RotatableAdapter),
+                    new Dictionary<Type, Func<object[], ICommand>>()
+                    {{ typeof(InvalidInputValueException), repeatCommandAfterExceptionStrategy }}
+                }
+            };
+            ExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
             var commandRunner = new CommandRunner(queue, exceptionHandler);
 
             Assert.ThrowsException<InvalidInputValueException>(() => commandRunner.Execute());
+        }
+
+        /// <summary>
+        /// Добавление в очередь команды для повторения ошибочной команды
+        /// </summary>
+        [TestMethod]
+        public void AddRepeatCommandInQueue()
+        {
+            var addRepeatCommandInQueueStrategy = (object[] arguments) =>
+            {
+                RepeatFailedCommand repeatCommand = new(arguments[0] as ICommand);
+                return new AddCommandToQueueCommand(repeatCommand, queue);
+            };
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<object[], ICommand>>>()
+            {
+                { typeof(RotatableAdapter),
+                    new Dictionary<Type, Func<object[], ICommand>>()
+                    {{ typeof(InvalidInputValueException), addRepeatCommandInQueueStrategy }}
+                }
+            };
+            ExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
+            var commandRunner = new CommandRunner(queue, exceptionHandler);
+
+            // KeyNotFoundException т.к. мы не задали поведение для RepeatFailedCommand.
+            // Т.е. в commandTypeExceptionHandlers нет ключа typeof(RepeatFailedCommand)
+            Assert.ThrowsException<KeyNotFoundException>(() => commandRunner.Execute());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SpaceBattle.Contracts;
+using SpaceBattle.Exceptions;
 using System.Collections.Concurrent;
 
 namespace SpaceBattle
@@ -16,11 +17,11 @@ namespace SpaceBattle
         /// <summary>
         /// Обработчик ошибок
         /// </summary>
-        private readonly IExceptionHandler exceptionHandler;
+        private readonly ExceptionHandler exceptionHandler;
 
         public CommandRunner(
             ConcurrentQueue<ICommand> queue,
-            IExceptionHandler exceptionHandler)
+            ExceptionHandler exceptionHandler)
         {
             this.queue = queue;
             this.exceptionHandler = exceptionHandler;
