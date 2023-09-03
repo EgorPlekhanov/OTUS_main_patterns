@@ -13,8 +13,6 @@ namespace Tests
     [TestClass]
     public class RotateObjectTests
     {
-        [TestInitialize] public void Init() => GC.Collect();
-
         /// <summary>
         /// Для объекта, повернутого на 45 градусов (значение 1, значит всего 8 углов) 10 поворотов меняет направление на 75 градусов (значение 3)
         /// </summary>

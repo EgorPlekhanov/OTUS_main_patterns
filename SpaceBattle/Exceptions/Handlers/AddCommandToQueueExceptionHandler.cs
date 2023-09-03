@@ -14,7 +14,7 @@ namespace SpaceBattle.Exceptions
         private readonly ConcurrentQueue<ICommand> queue;
 
         public AddCommandToQueueExceptionHandler(
-            IDictionary<Type, IDictionary<Type, ICommand>> commandTypeExceptionHandlers,
+            IDictionary<Type, IDictionary<Type, Func<Exception, ICommand>>> commandTypeExceptionHandlers,
             ConcurrentQueue<ICommand> queue)
             : base(commandTypeExceptionHandlers)
         {

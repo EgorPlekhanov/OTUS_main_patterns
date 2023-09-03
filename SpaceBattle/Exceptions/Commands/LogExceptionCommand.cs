@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using SpaceBattle.Contracts;
+﻿using SpaceBattle.Contracts;
 
 namespace SpaceBattle.Exceptions
 {
@@ -8,18 +7,21 @@ namespace SpaceBattle.Exceptions
     /// </summary>
     public class LogExceptionCommand : ICommand
     {
-        private readonly ILogger logger;
+        /// <summary>
+        /// Для простоты сделал лог в виде списка строк
+        /// </summary>
+        private readonly IList<string> loggerMessages;
         private readonly Exception exception;
 
         public LogExceptionCommand(
-            ILogger logger,
+            IList<string> loggerMessages,
             Exception exception)
         {
-            this.logger = logger;
+            this.loggerMessages = loggerMessages;
             this.exception = exception;
         }
 
         public void Execute()
-            => logger.Log(LogLevel.Error, exception.ToString());
+            => loggerMessages.Add(exception.ToString());
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SpaceBattle.Contracts;
+using SpaceBattle.Exceptions;
 
 namespace SpaceBattle.Adapters
 {
@@ -29,9 +30,9 @@ namespace SpaceBattle.Adapters
         public void Execute()
         {
             if (DirectionsCountPerStep < 1)
-                throw new Exception("Кол-во поворотов за шаг не может быть меньше 1");
+                throw new InvalidInputValueException("Кол-во поворотов за шаг не может быть меньше 1");
             if (DirectionsCount < 1)
-                throw new Exception("Общее кол-во углов не может быть меньше 1");
+                throw new InvalidInputValueException("Общее кол-во углов не может быть меньше 1");
             gameObject.SetProperty(nameof(Direction), (Direction + DirectionsCountPerStep) % DirectionsCount);
         }
     }

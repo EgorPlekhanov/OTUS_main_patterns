@@ -8,12 +8,12 @@ namespace SpaceBattle.Exceptions
     public class DefaultExceptionHandler : IExceptionHandler
     {
         /// <summary>
-        /// Словарь (CommandType, Словарь(ExceptionType, HandleExceptionCommand))
+        /// Словарь (Тип конкретной команды, Словарь(Тип конкретной ошибки, Стратегия обработки ошибки))
         /// </summary>
-        private readonly IDictionary<Type, IDictionary<Type, ICommand>> commandTypeExceptionHandlers;
+        private readonly IDictionary<Type, IDictionary<Type, Func<Exception, ICommand>>> commandTypeExceptionHandlers;
 
         public DefaultExceptionHandler(
-            IDictionary<Type, IDictionary<Type, ICommand>> commandTypeExceptionHandlers)
+            IDictionary<Type, IDictionary<Type, Func<Exception, ICommand>>> commandTypeExceptionHandlers)
         {
             this.commandTypeExceptionHandlers = commandTypeExceptionHandlers;
         }
@@ -22,7 +22,7 @@ namespace SpaceBattle.Exceptions
         {
             Type commandType = command.GetType();
             Type exceptionType = exception.GetType();
-            return commandTypeExceptionHandlers[commandType][exceptionType];
+            return commandTypeExceptionHandlers[commandType][exceptionType].Invoke(exception);
         }
     }
 }
