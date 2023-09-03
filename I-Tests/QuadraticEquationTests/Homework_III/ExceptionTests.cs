@@ -18,8 +18,8 @@ namespace Tests.Homework_III
     public class ExceptionTests
     {
         private IGameObject spaceship;
-        private ConcurrentQueue<ICommand> queue = new();
-        private IList<string> loggerMessages = new List<string>();
+        private readonly ConcurrentQueue<ICommand> queue = new();
+        private readonly IList<string> loggerMessages = new List<string>();
         //private DefaultExceptionHandler defaultExceptionHandler;
         //private AddCommandToQueueExceptionHandler addCommandToQueueExceptionHandler;
         //private RepeatAndLogExceptionHandler repeatAndLogExceptionHandler;
@@ -60,13 +60,36 @@ namespace Tests.Homework_III
                     {{ typeof(InvalidInputValueException), (exception) => new LogExceptionCommand(loggerMessages, exception) }}
                 }
             };
-            DefaultExceptionHandler defaultExceptionHandler = new(commandTypeExceptionHandlers);
-            var commandRunner = new CommandRunner(queue, defaultExceptionHandler);
+            DefaultExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers);
+            var commandRunner = new CommandRunner(queue, exceptionHandler);
 
             commandRunner.Execute();
 
             Assert.IsTrue(queue.IsEmpty);
             Assert.IsTrue(loggerMessages.Any());
+        }
+
+        /// <summary>
+        /// Добавление в очередь команды для записи в лог ошибки
+        /// </summary>
+        [TestMethod]
+        public void AddWriteLogAfterExceptionCommandInQueue()
+        {
+            var commandTypeExceptionHandlers = new Dictionary<Type, IDictionary<Type, Func<Exception, ICommand>>>()
+            {
+                { typeof(RotatableAdapter),
+                    new Dictionary<Type, Func<Exception, ICommand>>()
+                    {{ typeof(InvalidInputValueException), (exception) => new LogExceptionCommand(loggerMessages, exception) }}
+                }
+            };
+            AddCommandToQueueExceptionHandler exceptionHandler = new(commandTypeExceptionHandlers, queue);
+            var commandRunner = new CommandRunner(queue, exceptionHandler);
+
+            commandRunner.Execute();
+
+            Assert.IsTrue(queue.IsEmpty);
+            // Такая проверка чтобы убедиться, что команда для записи ошибки в лог вызвалась только 1 раз
+            Assert.IsTrue(loggerMessages.Count == 1);
         }
     }
 }

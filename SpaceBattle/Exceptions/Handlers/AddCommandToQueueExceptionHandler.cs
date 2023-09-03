@@ -24,8 +24,7 @@ namespace SpaceBattle.Exceptions
         public ICommand Handle(ICommand command, Exception exception)
         {
             ICommand exceptionCommand = base.Handle(command, exception);
-            queue.Enqueue(exceptionCommand);
-            return exceptionCommand;
+            return new AddCommandToQueueCommand(exceptionCommand, queue);
         }
     }
 }
